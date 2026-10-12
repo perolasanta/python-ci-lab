@@ -9,7 +9,7 @@ class Handler(BaseHTTPRequestHandler):
         else:
             response = {
                 "message": "Hello Peter Piper from Python CI/CD!",
-                "result": 5
+                "release" : 2, "result": 5
             }
 
         body = json.dumps(response).encode()
