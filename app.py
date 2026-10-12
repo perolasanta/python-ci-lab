@@ -1,5 +1,7 @@
+
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+import os
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -8,8 +10,12 @@ class Handler(BaseHTTPRequestHandler):
             response = {"status": "healthy"}
         else:
             response = {
-                "message": "Hello Peter Piper from Python CI/CD!",
-                "release" : 2, "result": 5
+                "message": os.getenv(
+                    "APP_MESSAGE",
+                    "Hello from the default configuration!"
+                ),
+                "release": 2,
+                "result": 5
             }
 
         body = json.dumps(response).encode()
@@ -28,3 +34,4 @@ if __name__ == "__main__":
     server = HTTPServer(("0.0.0.0", 8080), Handler)
     print("Server listening on port 8080")
     server.serve_forever()
+
